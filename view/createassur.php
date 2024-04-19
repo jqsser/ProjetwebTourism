@@ -3,7 +3,7 @@
 include '../controller/AsrclientC.php' ;
 $error = "";
 
-// create employe
+// create assurance
 $assurance = null;
 
 // create an instance of the controller
@@ -40,7 +40,7 @@ if (
            
         );
         $assuranceC->addassurance($assurance);
-        header('Location:ListAssurance.php');
+        header('Location:readassur.php');
     } else
         $error = "Missing information";
 }
