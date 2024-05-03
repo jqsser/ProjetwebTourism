@@ -5,6 +5,20 @@ include '../Model/Luggage.php';
 
 class LuggageC{
 
+    public function show_SpaLug($id_ELug)
+    {
+        $sql = "SELECT * FROM luggage WHERE id_ELug = :id_ELug";
+        $db = config::getConnexion();
+        try {
+            $query = $db->prepare($sql);
+            $query->execute();
+            $Spaceships = $query->fetchAll(); 
+            return $Spaceships;
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+    }
+
     public function show_Luggage()
     {
         $sql = "SELECT * FROM Luggage";
