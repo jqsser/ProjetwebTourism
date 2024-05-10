@@ -19,9 +19,10 @@ class SpaceshipC{
             die('Error: ' . $e->getMessage());
         }
     }
-    function rechercheReservation($rech)
+
+    function rechercheSpmodel($rech)
     {
-        $sql = "SELECT * FROM spaceship WHERE id_sp LIKE '%$rech%'";
+        $sql = "SELECT * FROM spaceship WHERE Sp_model LIKE '%$rech%'";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);

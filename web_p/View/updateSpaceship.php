@@ -42,7 +42,9 @@ if (
             $_POST['Sp_model'],
             $_POST['NbSp_place'],
             $_POST['NbSp_voyage'],
-            $_POST['description_SP']
+            $_POST['description_SP'],
+            $_POST['id_ELug']
+
         );
         // Mettre à jour la réservation dans la base de données
         $SpaceshipC->update_Spaceship($Spaceship, $_POST['id_sp']);

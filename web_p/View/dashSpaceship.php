@@ -194,11 +194,18 @@
     <section class="search-and-user">
         <form action="dashSpaceship.php" method="POST">
             <br>
-            <input type="search" placeholder="Search Desetinations.." name="rech" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" style="height:50px;">
-            <button type="submit" class="btn btn-outline-primary btn-sm" name="aff">
-                <svg aria-hidden="true">
-                    <use xlink:href="#search"></use>
-                </svg>
+            <section class="page-content">
+    
+    <section class="search-and-user">
+    
+      <form id="searchForm" method="GET">
+    <input type="search" id="Sp_model" name="Sp_model" placeholder="Search Pages...">
+    <button type="submit" aria-label="submit form">
+        <svg aria-hidden="true">
+            <use xlink:href="#search"></use>
+        </svg>
+    </button>
+</form>
                 Search
             </button>
         </form>
@@ -219,17 +226,29 @@
 
         $d = new SpaceshipC(NULL,NULL,NULL,NULL,NULL);
 
-        if(isset($_POST["aff"]) && $_POST["aff"] == "Search") {
-            $tab = $d->rechercheReservation($_POST["rech"]);
-        } else {
-            $tab = $d->show_Spaceship();
-        }
-        ?>
 
+        $tab = array();
+        
+        // Vérifier si le formulaire de recherche est soumis
+        if (isset($_GET["Sp_model"])) {
+          // Récupérer la valeur de recherche
+          $search_query = $_GET["Sp_model"];
+        
+          // Effectuer la recherche
+          $tab = $d->rechercheSpmodel($search_query);
+        
+      } else {
+        $tab = $d->show_Spaceship_Luggage();
+    }
+?>
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="styledash.css">
     <style>
+      #search_flight {
+    color: black; /* Set text color to black */
+  }
         body {
             font-family: Arial, sans-serif;
             background-color: #f7f7f7;
@@ -308,7 +327,8 @@
             margin-top: -20px;
         }
         /* Popup styles */
-        .popup {
+       /* Popup styles */
+       .popup {
             display: none;
             position: fixed;
             top: 50%;
@@ -328,19 +348,48 @@
         .form-group {
             margin-bottom: 10px;
         }
+
+        /* Additional styles for labels in the popup */
+        .popup label {
+            display: inline-block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); /* Add a subtle shadow effect */
+        }
+
+        /* Styles for input fields and textareas */
+        .popup input[type="text"],
+        .popup input[type="number"],
+        .popup textarea {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            background-color: #f2f2f2;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+        }
+
+        .popup input[type="text"]:focus,
+        .popup input[type="number"]:focus,
+        .popup textarea:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); /* Add focus effect */
+        }
+        
         </style>
-     
 
 </head>
 <body>
     <div class="container">
         <a href="dashLuggage.php" class="move-left-top" style="color: blue;">Go to list of client's Luggage</a>
-        <div class="center">
-            <h1 class="page-title">List of Spaceships</h1>
-            <h2>
-                <a class="btn btn-blue move-right" onclick="toggleAjoutSPPopup()">Add Spaceship</a>
-            </h2>
-        </div>
+        <div class="center" id="one">
+        <h1 class="page-title">List of Spaceships</h1>
+        <h2>
+            <a class="btn btn-blue move-right button" onclick="toggleAjoutSPPopup()">Add Spaceship</a>
+        </h2>
+    </div>
         <table border="1" align="center" width="70%">
             <head>
                 <tr>
@@ -365,7 +414,9 @@
                     <td><?= $rec['type_Lu'] ?></td>
                     <td><?= $rec['weight_Lu'] ?></td>
                     <td align="center">
+                        <div id="one" class="button">
                         <button class="btn btn-blue" onclick="PopupUpdateSPForm('<?= $rec['id_sp'] ?>', '<?= $rec['Sp_model'] ?>', '<?= $rec['NbSp_place'] ?>', '<?= $rec['NbSp_voyage'] ?>', '<?= $rec['description_SP'] ?>')">Update</button>
+                        </div>
                         <form id="deleteForm<?= $rec['id_sp'] ?>" action="deleteSpaceship.php" method="POST">
                             <input type="hidden" name="id_sp" value="<?= $rec['id_sp'] ?>">
                             <button type="button" class="btn btn-delete" onclick="confirmDelete(<?= $rec['id_sp'] ?>)">Delete</button>
@@ -376,14 +427,24 @@
             </body>
         </able>
     </div>
-
+    <div class="container">
     <!-- Update Spaceship Popup -->
-    <div id="updateSPPopup" class="popup">
+
+    <div id="updateLugPopup" class="popup">
+    <div class="container">
     <span class="close-btn" onclick="toggleUpdateSPPopup()">&times;</span>
+  
     <h2>Update Spaceship</h2>
     <form action="updateSpaceship.php" method="POST" onsubmit="return validateFormSpaceship()">
-        <input type="hidden" id="update_id_sp" name="id_sp" value="">
+   
+    <div class="form-group">
+        <div class="container">
+            <label for="update_id_sp">ID Luggage:</label>
+            <input type="text"  id="update_id_sp" name="id_id_sp" placeholder="ID Spaceship" disabled>
+        </div></div>
+    
         <div class="form-group">
+        
             <label for="update_Sp_model">Model</label>
             <input type="text" id="update_Sp_model" name="Sp_model" placeholder="Enter Model">
         </div>
@@ -404,6 +465,8 @@
         </div>
       </form>
     </div>
+    </div>
+  
                               
 
     <script>
@@ -427,8 +490,8 @@
         }
       </script>
     </form>
-                        
-               
+    
+    
 </body>
 
 </html>

@@ -302,6 +302,7 @@ $d = new LuggageC(NULL,NULL,NULL);
             margin-top: -20px;
         }
         /* Popup styles */F
+        
         .popup {
             display: none;
             position: fixed;
@@ -322,13 +323,42 @@ $d = new LuggageC(NULL,NULL,NULL);
         .form-group {
             margin-bottom: 10px;
         }
+
+        /* Additional styles for labels in the popup */
+        .popup label {
+            display: inline-block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); /* Add a subtle shadow effect */
+        }
+
+        /* Styles for input fields and textareas */
+        .popup input[type="text"],
+        .popup input[type="number"],
+        .popup textarea {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            background-color: #f2f2f2;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+        }
+
+        .popup input[type="text"]:focus,
+        .popup input[type="number"]:focus,
+        .popup textarea:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); /* Add focus effect */
+        }
         </style>
 </head>
 <body>    
     <div class="container">
         <a href="dashSpaceship.php" class="move-left-top" style="color: blue;">Go to list of Spaceships</a>
         <div class="center">
-            <h1 class="page-title">List of Luggage's</h1>
+            <h2 class="page-title">List of Luggage's</h2>
             <h2>
                 <a class="btn btn-blue move-right" onclick="togglePopup()">Add Luggage</a>
             </h2>
@@ -362,28 +392,32 @@ $d = new LuggageC(NULL,NULL,NULL);
     </div>
 
    <!-- Update Luggage Popup -->
+   
 <div id="updateLugPopup" class="popup">
+<div class="container">
     <span class="close-btn" onclick="toggleUpdateLugPopup()">&times;</span>
+    <div class="container">
     <h2>Update Luggage</h2>
     <form action="updateLuggage.php" method="POST" onsubmit="return validateUpdateLugForm();">
         <div class="form-group">
+        <div class="container">
             <label for="update_id_luggage">ID Luggage:</label>
-            <input type="text" class="form-control" id="update_id_luggage" name="id_luggage" placeholder="ID Luggage" disabled>
-        </div>
+            <input type="text"  id="update_id_luggage" name="id_luggage" placeholder="ID Luggage" disabled>
+        </div></div>
         <div class="form-group">
             <label for="update_type_Lu">Type Luggage:</label>
-            <input type="text" class="form-control" id="update_type_Lu" name="type_Lu" placeholder="Type Luggage">
+            <input type="text"  id="update_type_Lu" name="type_Lu" placeholder="Type Luggage">
         </div>
         <div class="form-group">
             <label for="update_weight_Lu">Weight Luggage:</label>
-            <input type="number" class="form-control" id="update_weight_Lu" name="weight_Lu" placeholder="Weight Luggage">
+            <input type="number"  id="update_weight_Lu" name="weight_Lu" placeholder="Weight Luggage">
         </div>
         <div class="form-group" align="center">
             <input class="btn btn-success" type="submit" name="modifier" value="Modifier">
         </div>
     </form>
+</div></div>
 </div>
-
     <script>
     function confirmDelete(id) {
         if (confirm("Are you sure you want to delete this luggage item?")) {

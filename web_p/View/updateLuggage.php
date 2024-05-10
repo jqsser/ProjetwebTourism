@@ -88,23 +88,23 @@ if (
                         
                                 
         <br>
-            <div >
+            <div class="form-group>
                 <input type="hidden" value="<?php echo $rec['id_luggage']?>" name="id_luggage" id="id_luggage">
                 <input type="text" class="form-control p-2" value="<?php echo $rec['id_luggage']?>" name="id_luggage_display" id="id_luggage_display" placeholder="id_luggage" disabled>
             </div>
         </br>
         
             <br>
-            <div >
+            <div class="form-group>
                 <input type="text" class="form-control p-2" value="<?php echo $rec['type_Lu']?>" name="type_Lu" id="type_Lu" placeholder="type_Lu">
             </div>
             </br>
             <br>
-            <div >
+            <div class="form-group>
                 <input type="int" class="form-control p-2" value="<?php echo $rec['weight_Lu']?>" name="weight_Lu" id="weight_Lu" placeholder="weight_Lu">
             </div>
             </br>
-        <div >
+        <div class="form-group>
             <input class="btn btn-success" type="submit" name="modifier" value="Modifier">
         </div>
         </br>

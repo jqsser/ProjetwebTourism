@@ -65,64 +65,60 @@ if (
             display: none;
         }
         .popup {
+            display: none;
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            border: 1px solid #000;
             background-color: #fff;
             padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            display: none;
-            z-index: 1000; /* Ensure the popup is on top */
-            width: 80%; /* Set width to 80% of the viewport */
-            max-width: 600px; /* Set maximum width to prevent overly wide popups */
+            z-index: 9999;
         }
         .close-btn {
             position: absolute;
-            top: 10px;
+            top: 5px;
             right: 10px;
             cursor: pointer;
         }
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
-        label {
+
+        /* Additional styles for labels in the popup */
+        .popup label {
+            display: inline-block;
+            margin-bottom: 5px;
             font-weight: bold;
-            margin-bottom: 10px; /* Increased margin for better spacing */
-            display: block;
-            font-size: 18px; /* Increased font size */
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); /* Add a subtle shadow effect */
         }
-        input[type="text"],
-        input[type="number"],
-        textarea {
+
+        /* Styles for input fields and textareas */
+        .popup input[type="text"],
+        .popup input[type="number"],
+        .popup textarea {
             width: 100%;
             padding: 10px;
-            font-size: 16px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            box-sizing: border-box; /* Include padding and border in the width */
-        }
-        textarea {
-            resize: vertical; /* Allow vertical resizing */
-            min-height: 100px; /* Set a minimum height for the textarea */
-        }
-        .btn {
-            background-color: #007bff; /* Blue color */
-            color: white;
-            padding: 15px 20px;
             border: none;
             border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            background-color: #f2f2f2;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
         }
-        .btn:hover {
-            background-color: #0056b3; /* Darker blue on hover */
+
+        .popup input[type="text"]:focus,
+        .popup input[type="number"]:focus,
+        .popup textarea:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); /* Add focus effect */
         }
     </style>
+    <div class="container">
     <div class="overlay" id="overlay"></div>
     <div class="popup" id="popup">
             <span class="close-btn" onclick="toggleAjoutSPPopup()">&times;</span>
+            <div class="container">
             <h2>Add Spaceship</h2>
             <form action="addSpaceship.php" method="POST" onsubmit="return validateForm()">
             <div class="form-group">
@@ -147,7 +143,7 @@ if (
             </div>
             <div class="form-group" align="center">
                 <button type="submit" class="btn">Add</button>
-            </div>
+            </div></div>
 
             </form>
 </div>
