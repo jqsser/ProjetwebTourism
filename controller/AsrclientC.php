@@ -1,11 +1,23 @@
 <?php
 include '../config.php';
 include '../model/Asrclient.php';
+
 class AsrclientC{
 
     public function listassurance()
     {
         $sql = "SELECT * FROM asrclient";
+        $db = config::getConnexion();
+        try {
+            $liste = $db->query($sql);
+            return $liste;
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+    }
+    public function listassurances($id_assur)
+    {
+        $sql = "SELECT * FROM asrclient WHERE id_assur = :id_assur";
         $db = config::getConnexion();
         try {
             $liste = $db->query($sql);
@@ -32,7 +44,7 @@ class AsrclientC{
     function addassurance($assurance)
     {
         $sql = "INSERT INTO asrclient  
-        VALUES (:id_assur, :type_assur,:datedebut, :datefin,:clienthealth,:asrprovider,:cost,:type)";
+        VALUES (:id_assur, :type_assur,:datedebut, :datefin,:clienthealth,:asrprovider,:cost,:type,:heaid)";
         $db = config::getConnexion();
         try {
             print_r($assurance->getdatedebut()->format('Y-m-d'));
@@ -46,7 +58,8 @@ class AsrclientC{
                 'clienthealth' => $assurance->getclienthealth(),
                 'asrprovider' => $assurance->getasrprovider(),
                 'cost' => $assurance->getcost(),
-                'type' => $assurance->gettype()
+                'type' => $assurance->gettype(),
+                'heaid' => $assurance->getheaid()
             ]);
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage();
@@ -66,7 +79,8 @@ class AsrclientC{
                     clienthealth = :clienthealth, 
                     asrprovider = :asrprovider, 
                     cost = :cost, 
-                    type = :type
+                    type = :type,
+                    heaid = :heaid
                 WHERE id_assur= :id_assur'
             );
             $query->execute([
@@ -77,7 +91,8 @@ class AsrclientC{
                 'clienthealth' => $assurance->getclienthealth(),
                 'asrprovider' => $assurance->getasrprovider(),
                 'cost' => $assurance->getcost(),
-                'type' => $assurance->gettype()
+                'type' => $assurance->gettype(),
+                'heaid' => $assurance->getheaid()
                 
             ]);
             echo $query->rowCount() . " records UPDATED successfully <br>";
@@ -119,4 +134,53 @@ class AsrclientC{
             echo "Your id is incorrect";
         }
     }
+    function showassurances($id_assur)
+    {
+        $sql = "SELECT * from asrclient where id_assur = $id_assur";
+        $db = config::getConnexion();
+        try {
+            $query = $db->prepare($sql);
+            $query->execute();
+
+            $assurance = $query->fetch();
+            return $assurance;
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+    }
+    function displayAssurance($id_assur) {
+        $assurance = $this->showassurance($id_assur);
+
+        if ($assurance) {
+            echo "<table border='1'>";
+            echo "<tr><th>idx</th><th>type_assur</th><th>datedebut</th><th>datefin</th><th>asrprovider</th><th>cost</th></tr>";
+            echo "<tr>";
+            echo "<td>" . $assurance['type_assur'] . "</td>";
+            echo "<td>" . $assurance['datedebut'] . "</td>";
+            echo "<td>" . $assurance['datefin'] . "</td>";
+            echo "<td>" . $assurance['asrprovider'] . "</td>";
+            echo "<td>" . $assurance['cost'] . "</td>";
+            echo "</tr>";
+            echo "</table>";
+        } else {
+            echo "Your id is incorrect";
+        }
+    }
+    public function searchAssuranceById($id_assur)
+{
+    $sql = "SELECT * FROM asrclient WHERE id_assur = :id_assur";
+    $db = config::getConnexion();
+    try {
+        $query = $db->prepare($sql);
+        $query->bindParam(':id_assur', $id_assur);
+        $query->execute();
+
+        $assurance = $query->fetch();
+        return $assurance;
+    } catch (Exception $e) {
+        die('Error: ' . $e->getMessage());
+    }
 }
+}
+
+

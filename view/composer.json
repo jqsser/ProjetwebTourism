@@ -1,0 +1,9 @@
+{
+    "name": "oussema/view",
+    "type": "project",
+    "license": "mit",
+    "minimum-stability": "stable",
+    "require": {
+        "phpmailer/phpmailer": "^6.9"
+    }
+}

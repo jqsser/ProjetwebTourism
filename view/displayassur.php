@@ -5,53 +5,46 @@ $idx = $_POST['idx']; // Retrieve the submitted idx value
 
 if (isset($idx)) {
     $asrclientC = new AsrclientC();
-    $assurance = $asrclientC->showassurance($idx); // Fetch assurance details
+    $assurance = $asrclientC->showassurances($idx); // Fetch assurance details
 
     if ($assurance) {
-        echo "<!DOCTYPE html>
-<html lang='en'>
-<head>
-<meta charset='UTF-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-<title>Assurance Details</title>
-<style>
-    table {
-        width: 80%; /* Set table width */
-        margin: 0 auto; /* Center the table horizontally */
-        font-size: 20px; /* Increase font size */
-    }
-    th, td {
-        padding: 15px; /* Add padding to cells for better spacing */
-        text-align: center; /* Center align cell content */
-    }
-    h1 {
-        text-align: center; /* Center align the title */
-        font-size: 36px; /* Increase font size for the title */
-    }
-</style>
-</head>
-<body>";
-
-        echo "<h1> Your assurance</h1>"; // Add the title
-
-        echo "<table border='1'>";
-        echo "<tr><th>idx</th><th>type_assur</th><th>datedebut</th><th>datefin</th><th>asrprovider</th><th>cost</th></tr>";
-        echo "<tr>";
-        echo "<td>" . $assurance['id_assur'] . "</td>";
-        echo "<td>" . $assurance['type_assur'] . "</td>";
-        echo "<td>" . $assurance['datedebut'] . "</td>";
-        echo "<td>" . $assurance['datefin'] . "</td>";
-        echo "<td>" . $assurance['asrprovider'] . "</td>";
-        echo "<td>" . $assurance['cost'] . "</td>";
-        echo "</tr>";
-        echo "</table>";
-
-        echo "</body>
-</html>";
+        // Assurance details exist, return JSON response
+        $response = array(
+            'success' => true,
+            'html' => "<tr>
+                        <th>Type</th>
+                        <td>{$assurance['type']}</td>
+                      </tr>
+                      <tr>
+                        <th>Date Start</th>
+                        <td>{$assurance['datedebut']}</td>
+                      </tr>
+                      <tr>
+                        <th>Date End</th>
+                        <td>{$assurance['datefin']}</td>
+                      </tr>
+                      <tr>
+                        <th>Provider</th>
+                        <td>{$assurance['asrprovider']}</td>
+                      </tr>
+                      <tr>
+                        <th>Cost</th>
+                        <td>{$assurance['cost']}</td>
+                      </tr>"
+        );
+        
+        echo json_encode($response);
     } else {
-       echo "<script>alert('Your ID doesn\'t exist');</script>";
+        // Assurance details don't exist, return JSON response
+        $response = array(
+            'success' => false,
+            'message' => 'Your ID doesn\'t exist'
+        );
+        echo json_encode($response);
     }
 } else {
     echo "No idx value submitted.";
 }
+
 ?>
+

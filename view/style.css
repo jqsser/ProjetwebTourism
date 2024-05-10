@@ -21,11 +21,11 @@ canvas#bg {
 body {
     margin: 0;
     /*overflow: ;
-   /* background: #f9f9;
+    background: #f9f9;
     top: 1;
     left: 1;
     width: 100%;
-   /* padding: 30px 100px;
+    padding: 30px 100px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -397,6 +397,4 @@ header {
     z-index: 10; /* High z-index to ensure the text is on top */
     opacity: 0.8;
 }
-
-
 

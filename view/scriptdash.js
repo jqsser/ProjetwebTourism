@@ -63,3 +63,28 @@ switchInput.addEventListener("input", function () {
     localStorage.setItem("dark-mode", "true");
   }
 });
+
+// Get the button and the pop-up element
+var addButton = document.getElementById("addAssuranceButton");
+var popup = document.getElementById("assurancePopup");
+
+// Get the <span> element that closes the pop-up
+var closeBtn = popup.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the pop-up
+addButton.addEventListener("click", function() {
+  popup.style.display = "block";
+});
+
+// When the user clicks on <span> (x), close the pop-up
+closeBtn.addEventListener("click", function() {
+  popup.style.display = "none";
+});
+
+// When the user clicks anywhere outside of the pop-up, close it
+window.addEventListener("click", function(event) {
+  if (event.target == popup) {
+    popup.style.display = "none";
+  }
+});
+

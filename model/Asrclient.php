@@ -1,6 +1,7 @@
 <?php
 class Asrclient{
-    public int $id_assur;
+    public ?int $id_assur=NULL;
+    public int $heaid;
     public string $type;
     public int $clienthealth;
     public float $cost;
@@ -9,7 +10,7 @@ class Asrclient{
     public DateTime $datefin;
     public string $asrprovider;
 
-    public function __construct($id_asr,$typ,$date_debut,$date_fin,$client_health,$asr_provider,$costs,$types){
+    public function __construct($id_asr=NULL,$typ,$date_debut,$date_fin,$client_health,$asr_provider,$costs,$types,$heaids){
         $this->id_assur= $id_asr;
         $this->type_assur= $typ;
         $this->datedebut= $date_debut;
@@ -18,10 +19,14 @@ class Asrclient{
         $this->asrprovider= $asr_provider;
         $this->cost= $costs;
         $this->type=$types;
+        $this->heaid=$heaids;
     }
 
     public function getid_assur(){
         return($this->id_assur);
+    }
+    public function getheaid(){
+        return($this->heaid);
     }
     
     public function getclienthealth(){
@@ -45,6 +50,10 @@ class Asrclient{
     public function setid_assur()
     {
         $this->id_assur=$id_assur;
+    }
+    public function setheaid()
+    {
+        $this->heaid=$heaid;
     }
     public function setclienthealth()
     {
